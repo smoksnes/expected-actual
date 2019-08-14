@@ -5,6 +5,7 @@ import Layout from "../../components/layout";
 import fetch from "isomorphic-unfetch";
 import React from "react";
 import { NextPageContext } from "next";
+import { ImageDisplay } from "../../components/ImageDisplay";
 
 type Props = {
   show: any;
@@ -29,7 +30,7 @@ class Post extends React.Component<Props> {
     return (
       <Layout>
         <h1>{this.props.id}</h1>
-
+        <ImageDisplay />
         <div className="markdown">
           <Markdown
             source={`
