@@ -5,6 +5,7 @@ import fetch from "isomorphic-unfetch";
 import { NextPage, NextPageContext } from "next";
 import { User } from "../interfaces";
 import React from "react";
+import { Container, Box, Typography } from "@material-ui/core";
 
 // const PostLink = props => (
 //   <li>
@@ -63,6 +64,14 @@ class Home extends React.Component<Props> {
     return (
       <div>
         <Layout>
+          <Container maxWidth="sm">
+            <Box my={4}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                Create React App v4-beta example with TypeScript
+              </Typography>
+            </Box>
+          </Container>
+
           <style jsx>{`
             h1,
             a {

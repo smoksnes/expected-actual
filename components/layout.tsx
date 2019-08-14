@@ -1,5 +1,8 @@
 import Header from "./header";
 import React from "react";
+import { ThemeProvider } from "@material-ui/styles";
+import { CssBaseline } from "@material-ui/core";
+import theme from "../themes";
 
 const layoutStyle = {
   margin: 20,
@@ -10,10 +13,14 @@ const layoutStyle = {
 class Layout extends React.Component {
   render() {
     return (
-      <div style={layoutStyle}>
-        <Header />
-        {this.props.children}
-      </div>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <div style={layoutStyle}>
+          <Header />
+          {this.props.children}
+        </div>
+      </ThemeProvider>
     );
   }
 }
