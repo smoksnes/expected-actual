@@ -17,10 +17,5 @@ class Layout extends React.Component {
     );
   }
 }
-/*
-const Layout = props => (
-
-);
-*/
 
 export default Layout;
