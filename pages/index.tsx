@@ -3,7 +3,7 @@ import Link from "next/link";
 import Layout from "../components/layout";
 import fetch from "isomorphic-unfetch";
 import { NextPage, NextPageContext } from "next";
-import { User } from "../interfaces";
+import { User, PostItem } from "../interfaces";
 import React from "react";
 import { Container, Box, Typography } from "@material-ui/core";
 import * as firebase from "firebase";
@@ -34,7 +34,7 @@ function getPosts() {
 // );
 
 type Props = {
-  items: any[];
+  items: PostItem[];
   pathname: string;
 };
 
@@ -69,10 +69,13 @@ class Home extends React.Component<Props> {
       //   });
 
       console.log("Querying users.");
-      var snapshot = await db.collection("users").get();
+      var snapshot = await db.collection("posts").get();
       console.log("Got snapshot users.");
-      var items = snapshot.docs.map((entry: { data: any }) => entry.data());
-      console.log(items);
+      let items = snapshot.docs.map((entry: { data: any }) => {
+        var d = entry.data() as PostItem;
+        return d;
+      });
+      var foo = console.log(items);
       console.log("Finished logging snapshot.");
 
       // .then(querySnapshot => {
@@ -164,9 +167,9 @@ class Home extends React.Component<Props> {
           {items !== undefined && (
             <ul>
               {items.map(show => (
-                <li key={show.id}>
-                  <Link href="/posts/[id]" as={`/posts/${show.id}`}>
-                    <a>{show.first}</a>
+                <li key={show.index}>
+                  <Link href="/posts/[id]" as={`/posts/${show.index}`}>
+                    <a>{show.title}</a>
                   </Link>
                 </li>
               ))}
