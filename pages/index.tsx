@@ -84,27 +84,17 @@ class Home extends React.Component<Props> {
       //   keyFilename: "config/expected-actual-dc16a1602380.json"
       // });
 
-      // let docRef = db.collection("users").doc("alovelace");
-
       // let setAda = docRef.set({
       //   first: "Ada",
       //   last: "Lovelace",
       //   born: 1815
       // });
 
-      // const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-      // const data = await res.json();
-
-      // console.log(`Show data fetched. Count: ${data.length}`);
-      // var items = data.map((entry: { show: any }) => entry.show);
       console.log(items);
 
       return {
         items
       };
-      // const { id } = query
-      // const item = await findData(Array.isArray(id) ? id[0] : id)
-      // return { item }
     } catch (err) {
       console.log("Get props error.");
       console.log(err.message);
@@ -152,41 +142,22 @@ class Home extends React.Component<Props> {
               opacity: 0.6;
             }
           `}</style>
-          <h1>Batman TV Shows</h1>
+          <h1>Items</h1>
           {items !== undefined && (
             <ul>
-              {items.map(show => (
-                <li key={show.index}>
-                  <Link href="/posts/[id]" as={`/posts/${show.index}`}>
-                    <a>{show.title}</a>
+              {items.map(item => (
+                <li key={item.index}>
+                  <Link href="/posts/[id]" as={`/posts/${item.index}`}>
+                    <a>{item.title}</a>
                   </Link>
                 </li>
               ))}
             </ul>
           )}
-
-          <h1>My Blog</h1>
-          <ul>
-            {/* <PostLink id="Hello Next.js" />
-        <PostLink id="Learn Next.js is awesome" />
-        <PostLink id="Deploy apps with Zeit" /> */}
-          </ul>
         </Layout>
       </div>
     );
   }
 }
-
-// Home.getInitialProps = async function() {
-//   const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-//   const data = await res.json();
-
-//   console.log(`Show data fetched. Count: ${data.length}`);
-
-//   return {
-//     shows: data.map(entry => entry.show)
-//   };
-// };
-// };
 
 export default Home;

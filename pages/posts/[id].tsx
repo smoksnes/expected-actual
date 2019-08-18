@@ -6,6 +6,7 @@ import fetch from "isomorphic-unfetch";
 import React from "react";
 import { NextPageContext } from "next";
 import { ImageDisplay } from "../../components/ImageDisplay";
+import FireBaseUtils from "../../interfaces/utils/firebaseUtils";
 
 type Props = {
   show: any;
@@ -15,6 +16,10 @@ type Props = {
 class Post extends React.Component<Props> {
   static getInitialProps = async ({ query }: NextPageContext) => {
     const { id } = query;
+    var db = FireBaseUtils.getFirestore();
+
+    var ref = db.collection("posts");
+
     const res = await fetch(`https://api.tvmaze.com/shows/${id}`);
     const show = await res.json();
 
