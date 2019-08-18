@@ -20,6 +20,22 @@ class Layout extends React.Component {
           <Header />
           {this.props.children}
         </div>
+
+        {/* <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script> */}
+        {/* <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyAL-gtXNqEXHqW4asWYHMDwTGiuCDVLvA0",
+          authDomain: "expected-actual.firebaseapp.com",
+          databaseURL: "https://expected-actual.firebaseio.com",
+          projectId: "expected-actual",
+          storageBucket: "",
+          messagingSenderId: "167205523492",
+          appId: "1:167205523492:web:2ba0aa40e3b201e6"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      </script> */}
       </ThemeProvider>
     );
   }

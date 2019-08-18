@@ -8,7 +8,7 @@ type ImageState = {
   loading: boolean;
 };
 
-export class ImageDisplay extends Component<number, ImageState> {
+export class ImageDisplay extends Component<any, ImageState> {
   static defaultProps = {
     currentIndex: 1,
     totalCount: 10,

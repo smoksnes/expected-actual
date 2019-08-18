@@ -6,6 +6,8 @@ import { NextPage, NextPageContext } from "next";
 import { User } from "../interfaces";
 import React from "react";
 import { Container, Box, Typography } from "@material-ui/core";
+import * as firebase from "firebase";
+import { QuerySnapshot } from "@google-cloud/firestore";
 
 // const PostLink = props => (
 //   <li>
@@ -38,12 +40,71 @@ type Props = {
 
 class Home extends React.Component<Props> {
   static getInitialProps = async ({ query }: NextPageContext) => {
+    console.log("Get props.");
     try {
-      const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-      const data = await res.json();
+      var firebaseConfig = {
+        apiKey: "AIzaSyAL-gtXNqEXHqW4asWYHMDwTGiuCDVLvA0",
+        authDomain: "expected-actual.firebaseapp.com",
+        databaseURL: "https://expected-actual.firebaseio.com",
+        projectId: "expected-actual",
+        storageBucket: "",
+        messagingSenderId: "167205523492",
+        appId: "1:167205523492:web:2ba0aa40e3b201e6"
+      };
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      var db = firebase.firestore();
+      // db.collection("users")
+      //   .add({
+      //     first: "Ada",
+      //     last: "Lovelace",
+      //     born: 1815
+      //   })
+      //   .then(function(docRef) {
+      //     console.log("Document written with ID: ", docRef.id);
+      //   })
+      //   .catch(function(error) {
+      //     console.error("Error adding document: ", error);
+      //   });
 
-      console.log(`Show data fetched. Count: ${data.length}`);
-      var items = data.map((entry: { show: any }) => entry.show);
+      console.log("Querying users.");
+      var snapshot = await db.collection("users").get();
+      console.log("Got snapshot users.");
+      var items = snapshot.docs.map((entry: { data: any }) => entry.data());
+      console.log(items);
+      console.log("Finished logging snapshot.");
+
+      // .then(querySnapshot => {
+      //   querySnapshot.forEach(doc => {
+      //     console.log(`${doc.id} => ${doc.data()}`);
+      //   });
+      // });
+
+      // {
+      //   apiKey: "### FIREBASE API KEY ###",
+      //   authDomain: "### FIREBASE AUTH DOMAIN ###",
+      //   projectId: "### CLOUD FIRESTORE PROJECT ID ###"
+      // });
+
+      // const db = new Firestore({
+      //   projectId: "expected-actual",
+      //   keyFilename: "config/expected-actual-dc16a1602380.json"
+      // });
+
+      // let docRef = db.collection("users").doc("alovelace");
+
+      // let setAda = docRef.set({
+      //   first: "Ada",
+      //   last: "Lovelace",
+      //   born: 1815
+      // });
+
+      // const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
+      // const data = await res.json();
+
+      // console.log(`Show data fetched. Count: ${data.length}`);
+      // var items = data.map((entry: { show: any }) => entry.show);
       console.log(items);
 
       return {
@@ -53,6 +114,9 @@ class Home extends React.Component<Props> {
       // const item = await findData(Array.isArray(id) ? id[0] : id)
       // return { item }
     } catch (err) {
+      console.log("Get props error.");
+      console.log(err.message);
+
       return { errors: err.message };
     }
   };
@@ -97,17 +161,17 @@ class Home extends React.Component<Props> {
             }
           `}</style>
           <h1>Batman TV Shows</h1>
-          {
+          {items !== undefined && (
             <ul>
               {items.map(show => (
                 <li key={show.id}>
                   <Link href="/posts/[id]" as={`/posts/${show.id}`}>
-                    <a>{show.name}</a>
+                    <a>{show.first}</a>
                   </Link>
                 </li>
               ))}
             </ul>
-          }
+          )}
 
           <h1>My Blog</h1>
           <ul>
