@@ -8,6 +8,7 @@ import React from "react";
 import { Container, Box, Typography } from "@material-ui/core";
 import * as firebase from "firebase";
 import { QuerySnapshot } from "@google-cloud/firestore";
+import FireBaseUtils from "../interfaces/utils/firebaseUtils";
 
 // const PostLink = props => (
 //   <li>
@@ -42,19 +43,7 @@ class Home extends React.Component<Props> {
   static getInitialProps = async ({ query }: NextPageContext) => {
     console.log("Get props.");
     try {
-      var firebaseConfig = {
-        apiKey: "AIzaSyAL-gtXNqEXHqW4asWYHMDwTGiuCDVLvA0",
-        authDomain: "expected-actual.firebaseapp.com",
-        databaseURL: "https://expected-actual.firebaseio.com",
-        projectId: "expected-actual",
-        storageBucket: "",
-        messagingSenderId: "167205523492",
-        appId: "1:167205523492:web:2ba0aa40e3b201e6"
-      };
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-      }
-      var db = firebase.firestore();
+      var db = FireBaseUtils.getFirestore();
       // db.collection("users")
       //   .add({
       //     first: "Ada",
