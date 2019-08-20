@@ -62,3 +62,5 @@ typings/
 heroku_key.pub
 heroku_key
 config/
+.vs/
+*.suo
