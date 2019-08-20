@@ -9,9 +9,19 @@ app.prepare()
 .then(() => {
   const server = express()
     
+  server.get('/p', (req, res) => {
+    console.log('super_secret');
+    return res.json({"foo": "bar"});
+    // const actualPage = '/post'
+    // const queryParams = { id: req.params.id } 
+    // app.render(req, res, actualPage, queryParams)
+})
+
   server.get('*', (req, res) => {
     return handle(req, res)
   })
+
+
     
   server.listen(3000, (err) => {
     if (err) throw err
